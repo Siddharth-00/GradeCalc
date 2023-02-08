@@ -22,8 +22,9 @@ class Component:
             for comp,w in self.subcomponents.values():
                 comp.generate_stats()
                 self.percentage_taken += comp.percentage_taken * w
+                self.provisional_mark += comp.provisional_mark * w * comp.percentage_taken
             if self.percentage_taken > 0:    
-                self.provisional_mark = sum(comp.provisional_mark * w * comp.percentage_taken for comp,w in self.subcomponents.values()) / sum(w * comp.percentage_taken for comp,w in self.subcomponents.values())
+                self.provisional_mark /= self.percentage_taken
 
 def print_stats(root: Component):
     print("\033[1mWHOLE YEAR\033[0m")
